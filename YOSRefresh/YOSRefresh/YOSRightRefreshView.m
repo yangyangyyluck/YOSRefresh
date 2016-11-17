@@ -69,7 +69,7 @@
         UIScrollView *scrollView = (UIScrollView *)self.superview;
         
         self.scrollView = scrollView;
-        self.scrollView.alwaysBounceVertical = YES;
+        self.scrollView.alwaysBounceHorizontal = YES;
         
         self.originalContentInset = scrollView.contentInset;
         

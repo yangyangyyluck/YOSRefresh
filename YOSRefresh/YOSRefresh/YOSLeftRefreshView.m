@@ -52,9 +52,11 @@
     [super willMoveToSuperview:newSuperview];
     
     [self.superview removeObserver:self forKeyPath:YOSRefreshContentOffset];
+    [self.superview removeObserver:self forKeyPath:YOSRefreshContentSize];
     
     if (newSuperview) {
         [newSuperview addObserver:self forKeyPath:YOSRefreshContentOffset options:NSKeyValueObservingOptionNew context:nil];
+        [newSuperview addObserver:self forKeyPath:YOSRefreshContentSize options:NSKeyValueObservingOptionNew context:nil];
     }
 }
 
@@ -71,7 +73,7 @@
         
         self.originalContentInset = scrollView.contentInset;
         
-        self.frame = CGRectMake([self frameOffsetX], 0, YOSRefreshLeftRightWidth, self.scrollView.frame.size.height);
+        [self adjustFrame];
     }
     
 }
@@ -82,6 +84,10 @@
     // 不能跟用户交互就直接返回
     if (!self.userInteractionEnabled || self.alpha <= 0.01 || self.hidden) return;
     
+    if ([keyPath isEqualToString:YOSRefreshContentSize]) {
+        [self adjustFrame];
+    }
+    
     // 如果正在刷新，直接返回
     if (self.status == YOSRefreshStatusRefreshing) return;
     
@@ -91,6 +97,10 @@
 }
 
 #pragma mark - 核心逻辑
+
+- (void)adjustFrame {
+    self.frame = CGRectMake([self frameOffsetX], 0, YOSRefreshLeftRightWidth, self.scrollView.frame.size.height);
+}
 
 - (void)adjustStatus {
     

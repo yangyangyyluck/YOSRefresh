@@ -159,6 +159,8 @@
     // 4.根据状态执行不同的操作
     switch (status) {
         case YOSRefreshStatusNormal: {
+            [self.animView resume];
+            
             if (oldState == YOSRefreshStatusRefreshing) {
                 [UIView animateWithDuration:YOSRefreshFastAnimationDuration animations:^{
                     self.scrollView.contentInset = self.originalContentInset;

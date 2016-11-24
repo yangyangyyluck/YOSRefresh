@@ -23,9 +23,9 @@
     self.scrollView = [UIScrollView new];
     [self.view addSubview:self.scrollView];
     
-    self.scrollView.contentSize = CGSizeMake(2000, 200);
+//    self.scrollView.contentSize = CGSizeMake(2000, 200);
     self.scrollView.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 200);
-    self.scrollView.contentInset = UIEdgeInsetsMake(0, 50, 0, -20);
+    self.scrollView.contentInset = UIEdgeInsetsMake(0, 50, 0, 50);
     self.view.backgroundColor = [UIColor whiteColor];
     
     UIView *v = [UIView new];
@@ -37,7 +37,7 @@
     UIView *v2 = [UIView new];
     [self.scrollView addSubview:v2];
     
-    v2.frame = CGRectMake(1950, 50, 50, 50);
+    v2.frame = CGRectMake(320 - 50, 50, 50, 50);
     v2.backgroundColor = [UIColor purpleColor];
     
     //    [self.scrollView addHeaderWithCallback:^{
@@ -59,19 +59,21 @@
     //    }];
     
     self.scrollView.backgroundColor = [UIColor yellowColor];
+    
+    
     [self.scrollView yos_addRightRefresh:^{
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [self.scrollView yos_endRightRefresh];
         });
     }];
     
-    [self.scrollView yos_addLeftRefresh:^{
-    
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [self.scrollView yos_endLeftRefresh];
-        });
-        
-    }];
+//    [self.scrollView yos_addLeftRefresh:^{
+//    
+//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//            [self.scrollView yos_endLeftRefresh];
+//        });
+//        
+//    }];
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {

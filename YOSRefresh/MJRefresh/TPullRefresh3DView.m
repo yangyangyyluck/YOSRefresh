@@ -53,6 +53,14 @@ static const CGFloat TPullRefreshViewDuration = 0.4;
     
 }
 
+- (void)willMoveToSuperview:(UIView *)newSuperview {
+    [super willMoveToSuperview:newSuperview];
+    
+    if (!newSuperview) {
+        [self resume];
+    }
+}
+
 #pragma mark - getter & setter
 
 - (CALayer *)animLayer {

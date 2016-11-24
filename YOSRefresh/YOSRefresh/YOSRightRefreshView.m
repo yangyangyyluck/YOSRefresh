@@ -116,16 +116,16 @@
     if (offset > 0) {
         CGFloat absOffset = ABS(offset);
         
-        CGFloat percentage = absOffset / YOSRefreshTopBottomHeight;
+        CGFloat percentage = absOffset / YOSRefreshLeftRightWidth;
         percentage = MIN(1.0, percentage);
         
         self.animView.percentage = percentage;
         
         if (self.scrollView.isDragging) {
             
-            if (0 < absOffset && absOffset < YOSRefreshTopBottomHeight) {
+            if (0 < absOffset && absOffset < YOSRefreshLeftRightWidth) {
                 self.status = YOSRefreshStatusPulling;
-            } else if (absOffset >= YOSRefreshTopBottomHeight) {
+            } else if (absOffset >= YOSRefreshLeftRightWidth) {
                 self.status = YOSRefreshStatusWillRefreshing;
             } else {
                 // normal 状态只能让endRefresh触发,不能用位移去触发
@@ -206,7 +206,7 @@
 #pragma mark - helper
 
 - (CGFloat)contentSizeWidth {
-    CGFloat contentSizeW = self.scrollView.contentSize.width;
+    CGFloat contentSizeW = MAX(self.scrollView.contentSize.width, self.scrollView.frame.size.width - self.originalContentInset.right);
     
     if (self.originalContentInset.right > 0) {
         contentSizeW += self.originalContentInset.right;
